@@ -15,7 +15,7 @@ crop_dict = {1: "Rice", 2: "Maize", 3: "Jute", 4: "Cotton", 5: "Coconut", 6: "Pa
              21: "Chickpea", 22: "Coffee"}
 
 # Streamlit app layout and styling
-st.set_page_config(page_title="3D Futuristic Crop Recommendation System", layout="centered")
+st.set_page_config(page_title="AgroCulture", layout="centered")
 st.markdown("""
     <style>
         body {
@@ -124,7 +124,11 @@ st.markdown("""
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Select a page", ["Home", "Crop Recommendation", "FAQ", "Contact"])
 
-# Home page content (Detailed and Clean)
+#HOME PAGE
+def redirect_to_recommendation():
+    st.session_state.page = "Crop Recommendation"
+
+    
 if page == "Home":
     st.markdown("""
     <div class="home-header">
@@ -135,14 +139,16 @@ if page == "Home":
 
     st.write("""
     ### Introduction
-    Our system provides personalized crop recommendations based on the soil and weather conditions you provide. Using advanced machine learning techniques, the app processes key data points and suggests the most optimal crop that would thrive in your region. Whether you're a farmer or an agricultural researcher, this tool can help boost crop yield and support sustainable farming practices.
+    Our system provides personalized crop recommendations based on the soil and weather conditions you provide. 
+    Using advanced machine learning techniques, the app processes key data points and suggests the most optimal crop that would thrive in your region. 
+    Whether you're a farmer or an agricultural researcher, this tool can help boost crop yield and support sustainable farming practices.
     """)
-
+    
     st.write("""
     ### How It Works:
     The app takes user inputs like Nitrogen, Phosphorus, Potassium content, temperature, humidity, rainfall, and soil pH. These inputs are processed by our machine learning models to recommend the best-suited crop based on historical agricultural data. The system ensures recommendations are scientifically accurate and timely.
     """)
-
+    
     st.write("""
     ### Key Features:
     - **AI-Driven Predictions**: Predict the most suitable crops using state-of-the-art machine learning models.
@@ -152,16 +158,11 @@ if page == "Home":
     - **Wide Range of Crops**: From grains like Rice to fruits like Mango, our system supports a variety of crops.
     """)
 
-    st.write("""
-    ### Technologies Used:
-    - **Machine Learning Models**: The core recommendation engine is powered by machine learning algorithms that analyze data and predict optimal crops.
-    - **Streamlit**: Used for creating the interactive, user-friendly web interface.
-    - **Scikit-Learn**: Utilized for data preprocessing and model training.
-    - **Pandas & NumPy**: Data handling and manipulation for efficient input-output operations.
-    """)
+   
 
-    # Showcase features
+    # Styling and Feature Showcase
     st.write("### Features of Our Crop Recommendation System:")
+
     st.markdown("""
     <div class="feature-list">
         <div class="feature-item">
@@ -179,12 +180,98 @@ if page == "Home":
     </div>
     """, unsafe_allow_html=True)
 
-    # Call to action
+    # # Adding the Call to Action button with CSS for better look
+    # st.markdown("""
+    # <div style="text-align: center;">
+    #     <button class="cta-button" onclick="window.location.href='/Crop Recommendation'">Start Crop Recommendation</button>
+    # </div>
+    # """, unsafe_allow_html=True)
+
+    # Enhanced CSS for Styling
     st.markdown("""
-    <div style="text-align: center;">
-        <button class="cta-button" onclick="window.location.href='/Crop Recommendation'">Start Crop Recommendation</button>
-    </div>
+    <style>
+        /* Styling for the page */
+        body {
+            font-family: 'Helvetica', sans-serif;
+            background-color: #fafafa;
+            color: #333;
+        }
+
+        .home-header {
+            background: linear-gradient(135deg, #ff9100, #3a9bdc);
+            color: #fff;
+            text-align: center;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .home-header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .home-header p {
+            font-size: 1.3rem;
+            margin-top: 10px;
+        }
+
+        /* Key Features Styling */
+        .feature-list {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            background-color: #f2f2f2;
+            padding: 20px;
+            width: 250px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-item h3 {
+            color: #ff9100;
+            font-size: 1.5rem;
+        }
+
+        .feature-item p {
+            color: #555;
+        }
+
+        /* Call to action button styling */
+        .cta-button {
+            background-color: #ff9100;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 145, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #ff5722;
+            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.5);
+            transform: scale(1.05);
+        }
+    </style>
     """, unsafe_allow_html=True)
+
+
 # FAQ page content with collapsible answers
 elif page == "FAQ":
     st.markdown("<h2 class='faq-header'>Frequently Asked Questions (FAQ)</h2>", unsafe_allow_html=True)
@@ -313,7 +400,7 @@ elif page == "Contact":
     # Contact form
     contact_form = """
     <div class="contact-form">
-        <form action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
+        <form action="https://formsubmit.co/thatquotes92@gmail.com" method="POST">
             <div>
                 <label for="name" style="color: #fff; font-size: 1.1rem;">Full Name:</label>
                 <input type="text" name="name" required placeholder="Enter your full name">
@@ -340,9 +427,9 @@ elif page == "Contact":
     st.write("""
     ### Alternative Ways to Reach Us:
     If you'd prefer, you can reach out to us via the following channels:
-    - **Email**: support@yourdomain.com
+    - **Email**: thatquotes92@gmail.com
     - **Phone**: +123 456 7890
-    - **Social Media**: @FarmingSupport (Twitter, Facebook, LinkedIn)
+    - **Social Media**: @AgroCulture (Twitter, Facebook, LinkedIn)
 
     We’re excited to hear from you and will get back to you as soon as possible!
     """)
