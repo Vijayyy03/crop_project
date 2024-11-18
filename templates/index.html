@@ -5,24 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authentication System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="auth-container">
-        <h1>Welcome to Crop Yield Prediction </h1>
-        <div class="auth-btn-container">
-            <a href="{{ url_for('login') }}" class="auth-btn">Login</a>
-            <a href="{{ url_for('register') }}" class="auth-btn">Register</a>
-        </div>
-    </div>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for category, message in messages %}
-                    <div class="{{ category }}">{{ message }}</div>
-                {% endfor %}
+        <div class="auth-box">
+            <h1>Welcome to <span>Crop Yield Prediction</span></h1>
+            <p class="subtitle">Your gateway to smarter farming decisions</p>
+            <div class="auth-btn-container">
+                <a href="{{ url_for('login') }}" class="auth-btn">Login</a>
+                <a href="{{ url_for('register') }}" class="auth-btn">Register</a>
             </div>
-        {% endif %}
-    {% endwith %}
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>

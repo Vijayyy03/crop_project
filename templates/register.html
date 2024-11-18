@@ -5,29 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="auth-container">
-        <h1>Create an Account</h1>
-        <form action="{{ url_for('register') }}" method="POST" class="auth-form">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-            <button type="submit" class="auth-btn">Register</button>
-        </form>
-        <div class="login-link">
-            Already have an account? <a href="{{ url_for('login') }}">Login here</a>
-        </div>
-    </div>
-
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for category, message in messages %}
-                    <div class="{{ category }}">{{ message }}</div>
-                {% endfor %}
+        <div class="auth-box">
+            <h1>Create an <span>Account</span></h1>
+            <p class="subtitle">Join us to unlock smarter farming decisions</p>
+            <form action="{{ url_for('register') }}" method="POST" class="auth-form">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit" class="auth-btn">Register</button>
+            </form>
+            <div class="login-link">
+                Already have an account? <a href="{{ url_for('login') }}">Login here</a>
             </div>
-        {% endif %}
-    {% endwith %}
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>

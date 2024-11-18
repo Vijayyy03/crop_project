@@ -132,7 +132,7 @@ def redirect_to_recommendation():
 if page == "Home":
     st.markdown("""
     <div class="home-header">
-        <h1>🌾 Futuristic Crop Recommendation System 🌾</h1>
+        <h1>🌾Crop Recommendation System</h1>
         <p>Harness the power of AI to predict the best crops for your region and soil conditions.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -456,7 +456,7 @@ elif page == "Contact":
 
 # Crop recommendation page content (No change)
 elif page == "Crop Recommendation":
-    st.title("🌱 Crop Recommendation System 🌱")
+    st.title("🌱 Crop Recommendation System")
     st.write("Enter the soil and weather conditions below to get the recommended crop for optimal yield.")
 
     # Input fields in a two-column structured layout
@@ -487,8 +487,83 @@ elif page == "Crop Recommendation":
             # Determine crop based on prediction
             if prediction[0] in crop_dict:
                 crop = crop_dict[prediction[0]]
+                st.markdown("""
+    <style>
+        /* Styling for the prediction result */
+        .result {
+            background: linear-gradient(135deg, #FFBC99, #FF9E80);  /* Peach gradient */
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s forwards, bounce 1s ease infinite;
+        }
+
+        .result h3 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .result p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* Keyframe for fade-in effect */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Keyframe for bounce effect */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Button Styling */
+        .stButton>button {
+            background-color: #FF7043; /* Peachy coral */
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 112, 67, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stButton>button:hover {
+            background-color: #FF5722; /* Deeper peach */
+            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* Spinner for loading */
+        .stSpinner {
+            color: #FF7043; /* Peachy coral */
+        }
+    </style>
+""", unsafe_allow_html=True)
+
                 st.markdown(f"<div class='result'>{crop} is the best crop to be cultivated with the given conditions. 🌱</div>", unsafe_allow_html=True)
             else:
                 st.warning("⚠️ Sorry, we could not determine the best crop with the provided data.")
         except Exception as e:
             st.error(f"❌ An error occurred during prediction: {e}")
+        
