@@ -75,7 +75,7 @@ def login():
             login_user(user)
             flash('Logged in successfully!', 'success')
             # Redirect to the Streamlit app
-            return redirect("http://localhost:8501")  # Make sure this URL matches your Streamlit app URL
+            return redirect("http://localhost:8501")  # Streamlit app URL
         else:
             flash('Login failed. Check your username and password.', 'error')
 
