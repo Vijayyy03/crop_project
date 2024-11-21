@@ -89,6 +89,14 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('home'))
 
+
+@app.route('/streamlit')
+def run_streamlit():
+    # Start Streamlit as a subprocess
+    subprocess.Popen(['streamlit', 'run', 'app.py', '--server.port', '8501', '--server.address', '0.0.0.0'])
+    return 'Streamlit is running on port 8501'
+    
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # Create database tables if not already created
