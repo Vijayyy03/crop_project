@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+import subprocess
 
 # Initialize Flask app and configuration
 app = Flask(__name__)
@@ -89,13 +90,13 @@ def logout():
     flash('You have been logged out.', 'success')
     return redirect(url_for('home'))
 
-
+# Streamlit route
 @app.route('/streamlit')
 def run_streamlit():
     # Start Streamlit as a subprocess
     subprocess.Popen(['streamlit', 'run', 'app.py', '--server.port', '8501', '--server.address', '0.0.0.0'])
     return 'Streamlit is running on port 8501'
-    
+
 
 if __name__ == '__main__':
     with app.app_context():
