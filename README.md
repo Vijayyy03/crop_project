@@ -30,7 +30,7 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/your-username/crop-prediction-streamlit.git
+git clone (https://github.com/Vijayyy03/crop_project.git)
 cd crop-prediction-streamlit
 Install the required packages:
 
