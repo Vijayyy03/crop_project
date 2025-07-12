@@ -3,23 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>🌾 Smart Crop Advisor - Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-box">
-            <h1>Create an <span>Account</span></h1>
-            <p class="subtitle">Join us to unlock smarter farming decisions</p>
+            <div class="logo-section">
+                <div class="logo-icon">🌾</div>
+                <h1>Create an <span>Account</span></h1>
+                <p class="subtitle">Join us to unlock smarter farming decisions with AI</p>
+            </div>
+            
             <form action="{{ url_for('register') }}" method="POST" class="auth-form">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
-                <button type="submit" class="auth-btn">Register</button>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <input type="text" name="username" placeholder="Choose a username" required>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <input type="password" name="password" placeholder="Create a password" required>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <input type="password" name="confirm_password" placeholder="Confirm your password" required>
+                </div>
+                
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Create Account</span>
+                </button>
             </form>
+            
             <div class="login-link">
-                Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+                <p>Already have an account? <a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login here</a></p>
             </div>
         </div>
 
@@ -27,11 +54,23 @@
             {% if messages %}
                 <div class="flash-messages">
                     {% for category, message in messages %}
-                        <div class="flash-message {{ category }}">{{ message }}</div>
+                        <div class="flash-message {{ category }}">
+                            <i class="fas fa-{% if category == 'success' %}check-circle{% else %}exclamation-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
                     {% endfor %}
                 </div>
             {% endif %}
         {% endwith %}
     </div>
+
+    <script>
+        // Add loading animation to form submission
+        document.querySelector('.auth-form').addEventListener('submit', function() {
+            const btn = document.querySelector('.auth-btn');
+            btn.classList.add('loading');
+            btn.innerHTML = '<span>Creating Account...</span>';
+        });
+    </script>
 </body>
 </html>

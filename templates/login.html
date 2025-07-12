@@ -3,22 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>🌾 Smart Crop Advisor - Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-box">
-            <h1>Welcome Back</h1>
-            <p class="subtitle">Login to access your account</p>
+            <div class="logo-section">
+                <div class="logo-icon">🌾</div>
+                <h1>Welcome Back</h1>
+                <p class="subtitle">Login to access your AI-powered crop recommendations</p>
+            </div>
+            
             <form action="{{ url_for('login') }}" method="POST" class="auth-form">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit" class="auth-btn">Login</button>
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <input type="text" name="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="auth-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login to Dashboard</span>
+                </button>
             </form>
+            
             <div class="register-link">
-                Don't have an account? <a href="{{ url_for('register') }}">Register here</a>
+                <p>Don't have an account? <a href="{{ url_for('register') }}"><i class="fas fa-user-plus"></i> Register here</a></p>
             </div>
         </div>
 
@@ -26,11 +47,23 @@
             {% if messages %}
                 <div class="flash-messages">
                     {% for category, message in messages %}
-                        <div class="flash-message {{ category }}">{{ message }}</div>
+                        <div class="flash-message {{ category }}">
+                            <i class="fas fa-{% if category == 'success' %}check-circle{% else %}exclamation-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
                     {% endfor %}
                 </div>
             {% endif %}
         {% endwith %}
     </div>
+
+    <script>
+        // Add loading animation to form submission
+        document.querySelector('.auth-form').addEventListener('submit', function() {
+            const btn = document.querySelector('.auth-btn');
+            btn.classList.add('loading');
+            btn.innerHTML = '<span>Authenticating...</span>';
+        });
+    </script>
 </body>
 </html>
