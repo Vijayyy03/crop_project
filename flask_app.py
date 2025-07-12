@@ -65,10 +65,26 @@ def check_streamlit_status():
     except:
         return False
 
-# Home route
+# Home route - Show landing page with options
 @app.route('/')
 def home():
     return render_template('index.html')
+
+# Direct Streamlit access route
+@app.route('/app')
+def direct_app():
+    # Ensure Streamlit is running before redirecting
+    if not streamlit_running:
+        # Start Streamlit if not running
+        streamlit_thread = threading.Thread(target=start_streamlit)
+        streamlit_thread.daemon = True
+        streamlit_thread.start()
+        
+        # Wait a moment for Streamlit to start
+        time.sleep(3)
+    
+    # Redirect directly to the Streamlit app
+    return redirect(STREAMLIT_URL)
 
 # Registration route
 @app.route('/register', methods=['GET', 'POST'])

@@ -3,29 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication System</title>
+    <title>🌾 Smart Crop Advisor - Welcome</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="auth-container">
+    <div class="auth-container" style="max-width: 800px;">
         <div class="auth-box">
-            <h1>Welcome to <span>Crop Yield Prediction</span></h1>
-            <p class="subtitle">Your gateway to smarter farming decisions</p>
-            <div class="auth-btn-container">
-                <a href="{{ url_for('login') }}" class="auth-btn">Login</a>
-                <a href="{{ url_for('register') }}" class="auth-btn">Register</a>
+            <div class="logo-section">
+                <div class="logo-icon">🌾</div>
+                <h1>Welcome to <span>Smart Crop Advisor</span></h1>
+                <p class="subtitle">AI-Powered Crop Recommendations for Smarter Farming</p>
+            </div>
+            
+            <div style="display: flex; gap: 2rem; margin: 3rem 0;">
+                <!-- Direct Access Card -->
+                <div class="feature-card" style="flex: 1; cursor: pointer;" onclick="window.location.href='{{ url_for('direct_app') }}'">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                    <h3>Quick Start</h3>
+                    <p>Go directly to the AI crop recommendation system</p>
+                    <div style="margin-top: 1rem; color: #667eea; font-weight: 600;">
+                        <i class="fas fa-arrow-right"></i> Start Now
+                    </div>
+                </div>
+                
+                <!-- Authentication Card -->
+                <div class="feature-card" style="flex: 1; cursor: pointer;" onclick="window.location.href='{{ url_for('login') }}'">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+                    <h3>Secure Access</h3>
+                    <p>Login with your account for personalized experience</p>
+                    <div style="margin-top: 1rem; color: #667eea; font-weight: 600;">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <p style="color: #b0b0b0; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i>
+                    Choose "Quick Start" to access the app immediately, or "Secure Access" to create an account
+                </p>
             </div>
         </div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <div class="flash-messages">
-                    {% for category, message in messages %}
-                        <div class="flash-message {{ category }}">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endwith %}
     </div>
+
+    <script>
+        // Add hover effects to cards
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
 </body>
 </html>
