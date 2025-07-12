@@ -14,6 +14,11 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_default_secret_key')  #
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Configuration for deployment
+STREAMLIT_URL = os.getenv('STREAMLIT_URL', 'http://localhost:8501')
+STREAMLIT_PORT = os.getenv('STREAMLIT_PORT', '8501')
+STREAMLIT_HOST = os.getenv('STREAMLIT_HOST', 'localhost')
+
 # Initialize database and login manager
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -42,12 +47,12 @@ def start_streamlit():
         # Start Streamlit as a subprocess
         streamlit_process = subprocess.Popen([
             'python', '-m', 'streamlit', 'run', 'app.py',
-            '--server.port', '8501',
-            '--server.address', 'localhost',
+            '--server.port', STREAMLIT_PORT,
+            '--server.address', STREAMLIT_HOST,
             '--server.headless', 'true'
         ])
         streamlit_running = True
-        print("Streamlit started successfully on port 8501")
+        print(f"Streamlit started successfully on {STREAMLIT_URL}")
     except Exception as e:
         print(f"Error starting Streamlit: {e}")
         streamlit_running = False
@@ -55,7 +60,7 @@ def start_streamlit():
 def check_streamlit_status():
     """Check if Streamlit is running"""
     try:
-        response = requests.get('http://localhost:8501', timeout=2)
+        response = requests.get(STREAMLIT_URL, timeout=2)
         return response.status_code == 200
     except:
         return False
@@ -118,8 +123,8 @@ def login():
                 # Wait a moment for Streamlit to start
                 time.sleep(3)
             
-            # Redirect to the Streamlit app
-            return redirect("http://localhost:8501")
+            # Redirect to the Streamlit app using configurable URL
+            return redirect(STREAMLIT_URL)
         else:
             flash('Login failed. Check your username and password.', 'error')
 
@@ -138,7 +143,7 @@ def logout():
 def streamlit_status():
     """Check if Streamlit is running"""
     if check_streamlit_status():
-        return {'status': 'running', 'url': 'http://localhost:8501'}
+        return {'status': 'running', 'url': STREAMLIT_URL}
     else:
         return {'status': 'not_running'}
 
@@ -151,9 +156,9 @@ def run_streamlit():
         streamlit_thread = threading.Thread(target=start_streamlit)
         streamlit_thread.daemon = True
         streamlit_thread.start()
-        return 'Starting Streamlit... Please wait a moment and then visit http://localhost:8501'
+        return f'Starting Streamlit... Please wait a moment and then visit {STREAMLIT_URL}'
     else:
-        return 'Streamlit is already running on http://localhost:8501'
+        return f'Streamlit is already running on {STREAMLIT_URL}'
 
 if __name__ == '__main__':
     with app.app_context():
@@ -165,6 +170,6 @@ if __name__ == '__main__':
     streamlit_thread.daemon = True
     streamlit_thread.start()
     
-    print("Flask app starting on http://localhost:5000")
-    print("Streamlit will be available on http://localhost:8501")
+    print(f"Flask app starting on http://localhost:5000")
+    print(f"Streamlit will be available on {STREAMLIT_URL}")
     app.run(debug=True, host='localhost', port=5000)
